@@ -83,6 +83,16 @@
     bottom : 25px;
 }
 
+#ButtonTalk {
+    width: 110px;
+    height: 110px;
+
+    position: absolute;
+
+    right : 130px;
+    bottom : 25px;
+}
+
 
 #ButtonJump #ButtonImage {
     background-image: url("./Images/UI_Icon_Jump.png#UI_Icon_Jump");
@@ -91,3 +101,21 @@
 #ButtonSprint #ButtonImage {
     background-image: url("./Images/UI_Icon_Sprint.png#UI_Icon_Sprint");
 }
+
+#DialogueLabel {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 600px;
+    height: 100px;
+
+    font-color: white;
+    font-size: 24px;
+
+    -unity-text-align: middle-center;
+
+    background-color: rgba(0, 0, 0, 0.5); /* optionnel pour bien voir le texte */
+    padding: 10px;
+}
+
+

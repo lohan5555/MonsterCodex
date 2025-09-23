@@ -1,0 +1,16 @@
+{
+  "npc_1": [
+    {
+      "id": 1,
+      "text": "Bonjour aventurier ! Bienvenue dans mon havre de paix."
+    },
+    {
+      "id": 2,
+      "text": "Toi qui chercher l'aventure, va me chercher un oeuf de dragon !"
+    },
+    {
+      "id": 3,
+      "text": "Allez fonce, c'est l'heure de mon goûter."
+    }
+  ]
+}
