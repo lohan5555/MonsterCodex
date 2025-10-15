@@ -24,6 +24,8 @@
         <ui:VisualElement name="ButtonTalk" enabled="true" focusable="true" class="touchscreen-button" style="bottom: 513px; right: 26px; display: none;">
             <ui:VisualElement name="ButtonImage" class="button-icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Starter%20Assets/Runtime/Mobile/UI/Images/UI_Icon_Talk.png?fileID=21300000&amp;guid=a45315003b546664382b2a51189ea41b&amp;type=3#UI_Icon_Talk&quot;); background-size: 90% 90%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="DialogueBox" style="position: absolute; top: 70%; left: 32%; width: 628px; height: 161px; background-color: rgba(0, 0, 0, 0.7); border-radius: 15px; padding: 10px;" />
+        <ui:VisualElement name="DialogueBox" style="position: absolute; top: 70%; left: 32%; width: 628px; height: 161px; background-color: rgba(0, 0, 0, 0.7); border-radius: 15px; padding: 10px; -unity-font-definition: resource(&apos;Font/OldLondon&apos;); font-size: 48px; color: rgb(255, 255, 255); display: none;">
+            <ui:Label text="Label" name="DialogueLabel" style="-unity-text-align: upper-center; white-space: pre-wrap;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

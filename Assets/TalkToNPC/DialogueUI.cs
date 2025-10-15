@@ -10,7 +10,8 @@ public class DialogueUI : MonoBehaviour
 
     public UIDocument uiDocument;
 
-    private VisualElement dialogueBox;
+    private VisualElement dialogueBox; // Background
+    private Label dialogueLabel;       // Texte
     private DialogueLine[] currentDialogue;
     private int currentIndex;
 
@@ -27,16 +28,26 @@ public class DialogueUI : MonoBehaviour
         }
 
         var root = uiDocument.rootVisualElement;
-        dialogueBox = root.Q<VisualElement>("DialogueBox");
 
+        // Récupère le background
+        dialogueBox = root.Q<VisualElement>("DialogueBox");
         if (dialogueBox == null)
         {
             Debug.LogError("[DialogueUI] DialogueBox introuvable !");
             return;
         }
 
-        // Cache la boîte au départ
+        // Récupère le label
+        dialogueLabel = root.Q<Label>("DialogueLabel");
+        if (dialogueLabel == null)
+        {
+            Debug.LogError("[DialogueUI] DialogueLabel introuvable !");
+            return;
+        }
+
+        // Cache au départ
         dialogueBox.style.display = DisplayStyle.None;
+        dialogueLabel.style.display = DisplayStyle.None;
     }
 
     void Update()
@@ -46,14 +57,11 @@ public class DialogueUI : MonoBehaviour
         bool tapped = false;
 
 #if ENABLE_INPUT_SYSTEM
-        // Nouveau Input System
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             tapped = true;
-
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
             tapped = true;
 #else
-        // Ancien Input
         if (Input.GetMouseButtonDown(0) ||
             (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             tapped = true;
@@ -72,7 +80,10 @@ public class DialogueUI : MonoBehaviour
         currentDialogue = lines;
         currentIndex = 0;
 
+        // Affiche background + label
         dialogueBox.style.display = DisplayStyle.Flex;
+        dialogueLabel.style.display = DisplayStyle.Flex;
+
         ShowCurrentLine();
     }
 
@@ -80,7 +91,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (currentDialogue != null && currentIndex < currentDialogue.Length)
         {
-            // Debug log pour vérifier le texte
+            dialogueLabel.text = currentDialogue[currentIndex].text;
             Debug.Log($"[DialogueUI] Ligne {currentIndex} : '{currentDialogue[currentIndex].text}'");
         }
         else
@@ -104,7 +115,11 @@ public class DialogueUI : MonoBehaviour
     private void EndDialogue()
     {
         currentDialogue = null;
+
+        // Cache tout
         dialogueBox.style.display = DisplayStyle.None;
-        Debug.Log("[DialogueUI] Dialogue terminé et boîte cachée");
+        dialogueLabel.style.display = DisplayStyle.None;
+
+        Debug.Log("[DialogueUI] Dialogue terminé et background + label cachés");
     }
 }
