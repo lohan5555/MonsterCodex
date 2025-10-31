@@ -1,13 +1,18 @@
 using UnityEngine;
 
-public class ChampiHeadHitbox : MonoBehaviour
+public class EnemyHitbox : MonoBehaviour
 {
     public int damage = 1;
-    private Enemy enemy;
+    private Collider hitbox;
 
     void Awake()
     {
-        enemy = FindAnyObjectByType<Enemy>();
+        hitbox = GetComponent<Collider>();
+    }
+
+    public void DisableHitbox()
+    {
+        hitbox.enabled = false;
     }
     
     private void OnTriggerEnter(Collider other)

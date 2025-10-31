@@ -32,9 +32,5 @@ public class PlayerSpawnManager : MonoBehaviour
                 Debug.LogWarning($"Aucun joueur trouvé après le chargement de la scène {scene.name} !");
             }
         }
-        else
-        {
-            Debug.LogWarning($"Aucun point de spawn trouvé dans la scène {scene.name} !");
-        }
     }
 }

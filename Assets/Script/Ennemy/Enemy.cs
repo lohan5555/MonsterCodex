@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 {
     public int health = 2;
     public Animator animator;
+    public EnemyHitbox weaponHitbox;
     public float invulnerabilityTime = 0.5f;
     public float attackTime = 5f;
     private bool isInvulnerable = false;
@@ -168,9 +169,9 @@ public class Enemy : MonoBehaviour
     {
         alive = false;
         animator.SetTrigger("Die");
+        weaponHitbox.DisableHitbox();
         StartCoroutine(WaitDespawn());
     }
-
     private IEnumerator WaitDespawn()
     {
         yield return new WaitForSeconds(despawnTime);
