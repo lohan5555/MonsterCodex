@@ -9,10 +9,12 @@ public class PlayerCombat : MonoBehaviour
     private bool isInvulnerable = false;
     public float invulnerabilityTime = 1.5f;
     private Animator animator;
+    private PlayerInventory PlayerInventory;
 
     private void Awake()
     {
         animator = GetComponentInParent<Animator>();
+        PlayerInventory = GetComponentInParent<PlayerInventory>();
     }
 
     public void EnableHitbox()
@@ -70,10 +72,7 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.Log("Player Die");
             animator.SetTrigger("Die");
-
-            //Reaload la scène à la mort, ne marche pas
-            //Scene scene = SceneManager.GetActiveScene();
-            //SceneManager.LoadScene(scene.buildIndex, LoadSceneMode.Single);
+            StartCoroutine(RespawnCooldown());
         }
         else
         {
@@ -89,5 +88,17 @@ public class PlayerCombat : MonoBehaviour
         isInvulnerable = true;
         yield return new WaitForSeconds(invulnerabilityTime);
         isInvulnerable = false;
+    }
+
+    private IEnumerator RespawnCooldown()
+    {
+        yield return new WaitForSeconds(2f);
+        animator.SetTrigger("Respawn");
+        //Reaload la scène à la mort, ne marche pas dans la scène 1 car il y a une instance de player déjà présente
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex, LoadSceneMode.Single);
+        
+        health = 100;
+        PlayerInventory.clear();
     }
 }

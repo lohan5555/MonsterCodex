@@ -10,4 +10,9 @@ public class PlayerInventory: MonoBehaviour
         items.Add(itemId);
         Debug.Log("Objet " + itemId + " ajouter à l'inventaire :" + string.Join(", ", items));
     }
+
+    public void clear()
+    {
+        items.Clear();
+    }
 }
