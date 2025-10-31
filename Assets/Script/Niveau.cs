@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Niveau : MonoBehaviour
 {
-    public string NomDeScene;
+    public string SceneDestination;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -11,26 +11,13 @@ public class Niveau : MonoBehaviour
 
         if (playerInv != null)
         {
-             Debug.Log($"scène: {NomDeScene}");
-            switch (NomDeScene)
+            if (SceneDestination == "level_Two" && playerInv.items.Contains(0))
             {
-                case "level_Two":
-                    if (playerInv.items.Contains(0))
-                    {
-                        PlayerSpawnManager.nextSpawnID = "default";
-                        SceneManager.LoadScene(NomDeScene);
-                    }
-                    break;
-                case "level_Three":
-                    if (playerInv.items.Contains(1))
-                    {
-                        PlayerSpawnManager.nextSpawnID = "default";
-                        SceneManager.LoadScene(NomDeScene);
-                    }
-                    break;
-                default:
-                    Debug.Log($"scene inconnu: {NomDeScene}");
-                    break;
+                SceneManager.LoadScene(SceneDestination);
+            }
+            if (SceneDestination == "level_Three" && playerInv.items.Contains(1))
+            {
+                SceneManager.LoadScene(SceneDestination);
             }
         }
     }

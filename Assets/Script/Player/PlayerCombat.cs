@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -69,6 +70,10 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.Log("Player Die");
             animator.SetTrigger("Die");
+
+            //Reaload la scène à la mort, ne marche pas
+            //Scene scene = SceneManager.GetActiveScene();
+            //SceneManager.LoadScene(scene.buildIndex, LoadSceneMode.Single);
         }
         else
         {

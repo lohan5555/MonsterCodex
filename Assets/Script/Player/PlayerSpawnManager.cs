@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
-    public static string nextSpawnID = "default";
+    //public static string nextSpawnID = "default";
 
     private void OnEnable()
     {
@@ -25,6 +25,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
             if (player != null)
             {
+                Debug.Log("Joueur placer");
                 player.transform.position = spawn.transform.position;
             }
             else
