@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class NPCSystem : MonoBehaviour
 {
-    [Tooltip("UIDocument du prefab UI_TouchScreenInput (drag & drop ici). Laisser vide pour auto-find.")]
-    public UIDocument uiDocument;
+    private UIDocument uiDocument;
 
     [Tooltip("Nom exact dans UI Builder (champ 'Name')")]
     public string buttonName = "ButtonTalk";
@@ -16,30 +15,30 @@ public class NPCSystem : MonoBehaviour
 
     private void Start()
     {
-        // trouve ou vérifie l'UIDocument
+        uiDocument = FindAnyObjectByType<UIDocument>();
+        // trouve ou vï¿½rifie l'UIDocument
         if (uiDocument == null)
         {
-            if (uiDocument == null)
+            var playerUI = FindAnyObjectByType<TouchscreenInput>();
+            if (playerUI != null)
             {
-                Debug.LogError("[NPCSystem] Aucun UIDocument trouvé dans la scène. Assigne UI_TouchScreenInput dans l'inspector !");
-                return;
+                uiDocument = playerUI.GetComponent<UIDocument>();
             }
-            Debug.Log("[NPCSystem] UIDocument trouvé automatiquement : " + uiDocument.gameObject.name);
         }
 
         var root = uiDocument.rootVisualElement;
         if (root == null)
         {
-            Debug.LogError("[NPCSystem] rootVisualElement null. UIDocument pas prêt ?");
+            Debug.LogError("[NPCSystem] rootVisualElement null. UIDocument pas prï¿½t ?");
             return;
         }
 
-        // cherche l'élément par name (c'est un VisualElement dans ton cas)
+        // cherche l'ï¿½lï¿½ment par name (c'est un VisualElement dans ton cas)
         talkVE = root.Q<VisualElement>(buttonName);
 
         if (talkVE == null)
         {
-            Debug.LogError($"[NPCSystem] '{buttonName}' introuvable dans le root. Vérifie le champ Name dans UI Builder et que tu as assigné le bon UIDocument.");
+            Debug.LogError($"[NPCSystem] '{buttonName}' introuvable dans le root. Vï¿½rifie le champ Name dans UI Builder et que tu as assignï¿½ le bon UIDocument.");
             // dump court pour aider au debug
             var all = root.Query<VisualElement>().ToList();
             Debug.Log($"[NPCSystem] total VisualElements dans root: {all.Count} (liste 0..10)");
@@ -48,15 +47,15 @@ public class NPCSystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("[NPCSystem] Element trouvé: type=" + talkVE.GetType().Name + " name=" + talkVE.name + " classes=" + string.Join(",", talkVE.GetClasses()));
+        Debug.Log("[NPCSystem] Element trouvï¿½: type=" + talkVE.GetType().Name + " name=" + talkVE.name + " classes=" + string.Join(",", talkVE.GetClasses()));
 
-        // s'assurer que le picking mode permet le clic (sinon ClickEvent ne se déclenchera pas)
+        // s'assurer que le picking mode permet le clic (sinon ClickEvent ne se dï¿½clenchera pas)
         talkVE.pickingMode = PickingMode.Position;
 
-        // cacher au départ
+        // cacher au dï¿½part
         talkVE.style.display = DisplayStyle.None;
 
-        // écoute le clic (même si c'est un VisualElement)
+        // ï¿½coute le clic (mï¿½me si c'est un VisualElement)
         talkVE.RegisterCallback<ClickEvent>(evt => OnTalkButtonPressed());
 
        
@@ -69,7 +68,7 @@ public class NPCSystem : MonoBehaviour
         VisualElement current = ve.parent;
         while (current != null)
         {
-            // si un ancêtre est caché, on le rend visible
+            // si un ancï¿½tre est cachï¿½, on le rend visible
             if (current.style.display == DisplayStyle.None)
             {
                 current.style.display = DisplayStyle.Flex;
@@ -87,11 +86,11 @@ public class NPCSystem : MonoBehaviour
 
         if (talkVE != null)
         {
-            // si un parent est caché on le rend visible (sinon l'enfant restera invisible)
+            // si un parent est cachï¿½ on le rend visible (sinon l'enfant restera invisible)
             EnsureAncestorsVisible(talkVE);
 
             talkVE.style.display = DisplayStyle.Flex;
-            // en cas de styles USS agressifs on peut aussi forcer l'opacité et la visibilité
+            // en cas de styles USS agressifs on peut aussi forcer l'opacitï¿½ et la visibilitï¿½
             talkVE.style.opacity = 1f;
             Debug.Log("[NPCSystem] OnTriggerEnter: talkVE.display = " + talkVE.style.display);
         }
@@ -131,7 +130,7 @@ public class NPCSystem : MonoBehaviour
             return;
         }
 
-        // Charge le bon dialogue selon la scène + inventaire
+        // Charge le bon dialogue selon la scï¿½ne + inventaire
         DialogueManager.Instance.LoadDialogueForCurrentScene();
 
         // Puis lance le dialogue

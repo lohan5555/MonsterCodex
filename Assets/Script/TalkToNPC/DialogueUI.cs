@@ -7,9 +7,7 @@ using UnityEngine.InputSystem;
 public class DialogueUI : MonoBehaviour
 {
     public static DialogueUI Instance;
-
-    public UIDocument uiDocument;
-
+    private UIDocument uiDocument;
     private VisualElement dialogueBox; // Background
     private Label dialogueLabel;       // Texte
     private DialogueLine[] currentDialogue;
@@ -17,19 +15,22 @@ public class DialogueUI : MonoBehaviour
 
     void Awake()
     {
-        // Singleton
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
+        uiDocument = FindAnyObjectByType<UIDocument>();
         if (uiDocument == null)
         {
-            Debug.LogError("[DialogueUI] UIDocument non assigné !");
-            return;
+            var playerUI = FindAnyObjectByType<TouchscreenInput>();
+            if (playerUI != null)
+            {
+                uiDocument = playerUI.GetComponent<UIDocument>();
+            }
         }
 
         var root = uiDocument.rootVisualElement;
 
-        // Récupère le background
+        // Rï¿½cupï¿½re le background
         dialogueBox = root.Q<VisualElement>("DialogueBox");
         if (dialogueBox == null)
         {
@@ -37,7 +38,7 @@ public class DialogueUI : MonoBehaviour
             return;
         }
 
-        // Récupère le label
+        // Rï¿½cupï¿½re le label
         dialogueLabel = root.Q<Label>("DialogueLabel");
         if (dialogueLabel == null)
         {
@@ -45,7 +46,7 @@ public class DialogueUI : MonoBehaviour
             return;
         }
 
-        // Cache au départ
+        // Cache au dï¿½part
         dialogueBox.style.display = DisplayStyle.None;
         dialogueLabel.style.display = DisplayStyle.None;
     }
@@ -120,6 +121,6 @@ public class DialogueUI : MonoBehaviour
         dialogueBox.style.display = DisplayStyle.None;
         dialogueLabel.style.display = DisplayStyle.None;
 
-        Debug.Log("[DialogueUI] Dialogue terminé et background + label cachés");
+        Debug.Log("[DialogueUI] Dialogue terminï¿½ et background + label cachï¿½s");
     }
 }
