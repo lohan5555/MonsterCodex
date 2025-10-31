@@ -181,9 +181,9 @@ public class HealthSystem : MonoBehaviour
 	private void UpdateGraphics()
 	{
 		UpdateHealthBar();
-		UpdateHealthGlobe();
-		UpdateManaBar();
-		UpdateManaGlobe();
+		//UpdateHealthGlobe();
+		//UpdateManaBar();
+		//UpdateManaGlobe();
 	}
 
 	//==============================================================
@@ -210,7 +210,7 @@ public class HealthSystem : MonoBehaviour
 	IEnumerator PlayerDied()
 	{
 		// Player is dead. Do stuff.. play anim, sound..
-		PopupText.Instance.Popup("You have died!", 1f, 1f); // Demo stuff!
+		//PopupText.Instance.Popup("You have died!", 1f, 1f); // Demo stuff!
 
 		yield return null;
 	}
