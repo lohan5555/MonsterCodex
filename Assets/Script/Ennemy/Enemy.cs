@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public Transform player;                 // Référence vers le joueur
     public float speed = 2f;                 // Vitesse de déplacement
     public float gravity = -9.81f;           // Gravité
-    public float stopDistance = 1.5f;        // Distance minimale avant de s'arrêter
+    public float stopDistance = 1f;        // Distance minimale avant de s'arrêter
     public float detectionDistance = 3f;     // Distance de détection du joueur
     public Transform groundCheck;            // Le sol
     private bool isGrounded;

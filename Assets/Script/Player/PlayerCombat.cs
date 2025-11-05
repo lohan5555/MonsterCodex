@@ -114,22 +114,32 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator RespawnCooldown()
     {
         animator.SetTrigger("Respawn");
-
-        //on attant la fin de l'animation de mort
         yield return new WaitForSeconds(0.5f);
-        
-        //on replace le joueur
-        var player = FindAnyObjectByType<PlayerCombat>()?.gameObject;
-        SpawnPoint spawn = FindAnyObjectByType<SpawnPoint>();
-        player.transform.position = player.transform.position;
-        transform.rotation = spawn.transform.rotation;
 
-        //on réinitialise ses stats
         health = 100;
         PlayerInventory.clear();
 
-        //on recharge la scène
         Scene scene = SceneManager.GetActiveScene();
+        SceneManager.sceneLoaded += OnSceneReloaded;
         SceneManager.LoadScene(scene.name);
     }
+
+    private void OnSceneReloaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(DelayedReposition());
+    }
+
+    private IEnumerator DelayedReposition()
+    {
+        yield return new WaitForSeconds(0.3f); // attendre que tout soit initialisé
+        var spawn = FindAnyObjectByType<SpawnPoint>();
+        if (spawn != null)
+        {
+            transform.position = spawn.transform.position;
+            transform.rotation = spawn.transform.rotation;
+        }
+        SceneManager.sceneLoaded -= OnSceneReloaded;
+    }
+
+
 }
