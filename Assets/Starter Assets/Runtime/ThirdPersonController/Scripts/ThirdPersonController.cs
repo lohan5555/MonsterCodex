@@ -213,6 +213,12 @@ namespace StarterAssets
 
         private void Move()
         {
+            if (_controller == null || _input == null || _mainCamera == null)
+            {
+                Debug.LogError($"Move(): _controller={_controller}, _input={_input}, _mainCamera={_mainCamera}");
+                return;
+            }
+
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 

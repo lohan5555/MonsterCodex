@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private string baseUrl = "https://billyboy16.github.io/unity-dialogues/";
 
+    // Bouton à afficher si pas de connexion / échec JSON
+    [SerializeField] private GameObject mainMenuButton;
+
     void Awake()
     {
         if (Instance != null)
@@ -32,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("[GameManager] Téléchargement des dialogues depuis GitHub Pages...");
 
-        // Liste des fichiers JSON à précharger
         string[] dialogueFiles = {
             "dialogue_1/dialogues_1.json",
             "dialogue_1/dialogues_2.json",
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
             "dialogue_2/dialogues_2.json",
             "dialogue_3/dialogues_1.json"
         };
+
+        bool success = true;
 
         foreach (string file in dialogueFiles)
         {
@@ -61,17 +65,30 @@ public class GameManager : MonoBehaviour
                     catch (System.Exception e)
                     {
                         Debug.LogError($"[GameManager] Erreur parsing JSON ({file}) : {e.Message}");
+                        success = false;
+                        break; // stop si erreur
                     }
                 }
                 else
                 {
                     Debug.LogError($"[GameManager] Erreur de téléchargement : {file} ({request.error})");
+                    success = false;
+                    break; // stop si échec téléchargement
                 }
             }
         }
 
-        Debug.Log("[GameManager] Tous les dialogues ont été chargés !");
-        SceneManager.LoadScene("level_One");
+        if (success)
+        {
+            Debug.Log("[GameManager] Tous les dialogues ont été chargés !");
+            SceneManager.LoadScene("level_One");
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] Impossible de charger les dialogues. Activation du bouton B_MAINMENU.");
+            if (mainMenuButton != null)
+                mainMenuButton.gameObject.SetActive(true);
+        }
     }
 
     public void RegisterPlayer(GameObject p)

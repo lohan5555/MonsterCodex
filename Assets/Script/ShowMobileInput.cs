@@ -6,7 +6,7 @@ public class ShowMobileInput : MonoBehaviour
     void Start()
     {
         // Cherche le premier UIDocument actif dans la scène
-        UIDocument doc = FindObjectOfType<UIDocument>();
+        UIDocument doc = Object.FindFirstObjectByType<UIDocument>();
         if (doc == null)
         {
             Debug.LogError("[ShowMobileInput] Aucun UIDocument trouvé dans la scène !");
