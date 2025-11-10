@@ -84,6 +84,16 @@
     background-image: url("project://database/Assets/Starter%20Assets/Runtime/Mobile/UI/Images/UI_Icon_Sprint.png?fileID=21300000&guid=b0fa70abd2a79904cb00b175dfd8ec7e&type=3#UI_Icon_Sprint");
 }
 
+.monster-item {
+    color: white;
+    font-size: 28px;
+    padding: 10px;
+    margin: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    white-space: normal;
+}
+
+
 
 
 
