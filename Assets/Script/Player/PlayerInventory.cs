@@ -23,4 +23,9 @@ public class PlayerInventory: MonoBehaviour
         items.Clear();
         facts.Clear();
     }
+
+    public List<int> getFacts()
+    {
+        return facts;
+    }
 }
