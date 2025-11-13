@@ -116,7 +116,8 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Respawn");
         yield return new WaitForSeconds(0.5f);
 
-        health = 100;
+        health = 100; //on régénère la vie
+        HealthSystem.Instance.HealDamage(100); //on régénère l'affichage de la vie
         PlayerInventory.clear();
 
         Scene scene = SceneManager.GetActiveScene();
