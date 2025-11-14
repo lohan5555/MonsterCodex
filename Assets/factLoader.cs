@@ -39,7 +39,7 @@ public class factLoader : MonoBehaviour
             Debug.Log(visibleFacts[i].text);
         };
 
-        listView.itemsSource = monsterData.data;
+        listView.itemsSource = visibleFacts;
         listView.fixedItemHeight = 40;
         listView.selectionType = SelectionType.None;
 
