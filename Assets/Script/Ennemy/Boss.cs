@@ -15,12 +15,25 @@ public class Boss : MonoBehaviour
     [Header("Fire Attack Manager")]
     public FireAttackManager fireAttackManager; // assigner depuis l'inspecteur
 
+    [Header("Playerdetector")]
+    public GameObject playerdetector; // assigner depuis l'inspecteur
+
+    public Transform player;
+
     private bool isDead = false;
+
+    public int factId = 6;
 
     void Start()
     {
         currentHealth = maxHealth;
         Debug.Log("[Boss] Max Boss HP : " + maxHealth);
+
+        if (player == null) //si on ne le trouve pas on le cherche
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) player = p.transform;
+        }
 
     }
 
@@ -62,5 +75,9 @@ public class Boss : MonoBehaviour
 
         // Destruction du boss après un léger délai
         Destroy(gameObject, despawnDelay);
+        Destroy(playerdetector, despawnDelay);
+
+        var playerInventory = player.GetComponent<PlayerInventory>();
+        playerInventory.AddFacts(factId);
     }
 }

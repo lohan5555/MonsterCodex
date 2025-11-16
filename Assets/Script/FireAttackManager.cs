@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.UIElements;
+
 
 [System.Serializable]
 public class FireAttackType
@@ -43,6 +45,18 @@ public class FireAttackManager : MonoBehaviour
     private bool isAttacking = false;
     private GameObject activeFireZoneInstance;
     public int maxHealth = 20;
+
+    private VisualElement talkVE;   
+    void Awake()
+    {
+        // Récupération du UIDocument et de ButtonTalk
+        UIDocument doc = FindObjectOfType<UIDocument>();
+        if (doc != null)
+        {
+            var root = doc.rootVisualElement;
+            talkVE = root.Q<VisualElement>("ButtonTalk");
+        }
+    }
 
 
     void Update()
@@ -165,6 +179,8 @@ public class FireAttackManager : MonoBehaviour
         }
 
         MusicManager.Instance.StopBossMusicAndResumeLevel();
+        if (talkVE != null)
+            talkVE.style.display = DisplayStyle.None;
     }
 
 }
