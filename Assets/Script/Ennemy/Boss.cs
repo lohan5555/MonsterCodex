@@ -21,10 +21,12 @@ public class Boss : MonoBehaviour
     {
         currentHealth = maxHealth;
         Debug.Log("[Boss] Max Boss HP : " + maxHealth);
+
     }
 
     public void TakeDamage(int amount)
     {
+        BossUI.Instance.UpdateBossHealth(currentHealth, maxHealth);
         if (isDead) return;
 
         currentHealth -= amount;
@@ -40,6 +42,9 @@ public class Boss : MonoBehaviour
 
         isDead = true;
         Debug.Log("[Boss] Boss mort !");
+        BossUI.Instance.HideBossBar();
+
+
 
         // Stoppe toutes les attaques de feu
         if (fireAttackManager != null)

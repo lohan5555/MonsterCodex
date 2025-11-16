@@ -25,5 +25,16 @@ public class ShowMobileInput : MonoBehaviour
         {
             Debug.LogWarning("[ShowMobileInput] Élément #MobileInput introuvable !");
         }
+
+        var bossHealthBar = root.Q<VisualElement>("BossHealthBarContainer");
+        if (bossHealthBar != null)
+        {
+            bossHealthBar.style.display = DisplayStyle.None;
+            Debug.Log("[ShowMobileInput] BossHealthBarContainer cachée !");
+        }
+        else
+        {
+            Debug.Log("[ShowMobileInput] BossHealthBarContainer introuvable (nom incorrect ?)");
+        }
     }
 }

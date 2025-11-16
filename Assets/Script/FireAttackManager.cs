@@ -42,6 +42,7 @@ public class FireAttackManager : MonoBehaviour
 
     private bool isAttacking = false;
     private GameObject activeFireZoneInstance;
+    public int maxHealth = 20;
 
 
     void Update()
@@ -147,13 +148,10 @@ public class FireAttackManager : MonoBehaviour
     public void StartFireCombat()
     {
         combatActive = true;
+        
+        BossUI.Instance.ShowBossBar("Gandalf", maxHealth);
+        MusicManager.Instance.PlayBossMusic();
 
-        // Jouer la musique si définie
-        if (audioSource != null && combatMusic != null)
-        {
-            audioSource.clip = combatMusic;
-            audioSource.Play();
-        }
     }
 
     public void StopFireCombat()
@@ -166,9 +164,7 @@ public class FireAttackManager : MonoBehaviour
             activeFireZoneInstance = null;
         }
 
-        // Arrêter la musique
-        if (audioSource != null)
-            audioSource.Stop();
+        MusicManager.Instance.StopBossMusicAndResumeLevel();
     }
 
 }
